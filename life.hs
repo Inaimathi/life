@@ -1,7 +1,6 @@
 module Main where
 import Data.List
 
--- Sparse array of living cells for current world to sparse array of living cells next time
 lifeStep :: [(Int, Int)] -> [(Int, Int)]
 lifeStep cells = [head g | g <- grouped cells, viable g]
   where grouped = group . sort . concat . map neighbors
@@ -13,7 +12,7 @@ lifeStep cells = [head g | g <- grouped cells, viable g]
 
 showWorld :: [(Int, Int)] -> IO ()
 showWorld cells = mapM_ putStrLn $ worldToGrid cells
-  where worldToGrid cells = [[cellChar (x, y) | x <- [0..greatest]] | y <- [0..greatest]]
+  where worldToGrid cells = [[cellChar (x, y) | x <- [least..greatest]] | y <- [least..greatest]]
         cellChar cell = if cell `elem` cells then '#' else '.'
         (least, greatest) = worldBounds cells
 

@@ -32,9 +32,6 @@
     (loop for k being the hash-keys in f
        for (x . y) = k
        when (or 
-	     (< x 0) (< y 0)
-	     (> x world-size)
-	     (> y world-size)
 	     (and (= (gethash k f) 2) (not (gethash k cells))))
        do (remhash k f))
     f))
